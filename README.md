@@ -1,6 +1,127 @@
-# Project Public and Social_services
- 
- This project aims to develop a prototype for the healthcare sector, focusing on optimizing and automating access to information and the available clinics located in Lombardy, Italy. It aims to optimize and automate access to health information, considering challenges related to data privacy and inconsistencies within the healthcare system. The development of the project is based on the LangChain framework, powered by the GPT-3.5 Turbo model. Tailored explanations and support to the user is given by a list of tools that the agent decides to implement based on some task-specific settings provided. Furthermore, an integration with Optical Character Recognition (OCR) technology is envisioned to extract outpatient services directly from electronic prescriptions, with the aim of locating suitable clinics. Several limitations have been recognized regarding the domain of interest, the computational costs of the model related to both prompt and evaluation, output control, and the integration of certain tools, such as OCR technology, which in itself has also criticality in dealing with certain types of files and documents.
-Although this project tackles complexities to deliver automated and accessible support for citizens, it has laid the groundwork for further advancements and enhancements in digital healthcare, presenting opportunities for progress in the field.
+# PSS Healthcare - AI-Powered Care Navigation Platform
 
-NB.Prescriptions were not uploaded to the repository due to limitations regarding privacy and GDPR
+This is a university project that has been fully refactored with a modern architecture, stronger application logic, and AI-powered workflows for healthcare navigation.
+
+## What This Project Does
+
+- Conversational healthcare assistant (`Care Navigator`)
+- Clinical document upload integrated into chat flow (OCR and term extraction)
+- Intelligence Box updated from both chat and uploaded documents
+- Healthcare facility search with dataset + smart demo fallback
+- Pharmacy and medication search with interactive OpenStreetMap
+- Selected facility contact panel
+- One-page product-style dashboard UI
+
+## Tech Stack
+
+- Backend: Python + FastAPI
+- Frontend: React + Vite + TypeScript + Tailwind
+- Map: Leaflet / React-Leaflet
+- AI providers: Anthropic / OpenAI / Mock (configurable)
+
+## Requirements
+
+- Python 3.10+
+- Node.js 18+ (with `npm`)
+
+## Installation
+
+### 1) Python environment
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install --upgrade pip
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+```
+
+### 2) Frontend dependencies
+
+```powershell
+npm.cmd --prefix frontend install
+```
+
+## Run
+
+### Recommended: one-command startup
+
+```powershell
+python main.py full
+```
+
+This starts:
+- FastAPI backend at `http://127.0.0.1:8000`
+- Vite frontend at `http://127.0.0.1:5173`
+
+### Alternative: run separately
+
+Backend:
+```powershell
+python main.py api --port 8000
+```
+
+Frontend:
+```powershell
+npm.cmd --prefix frontend run dev
+```
+
+## `main.py` Modes
+
+- `python main.py` -> web mode (API + browser open)
+- `python main.py api` -> API only
+- `python main.py cli` -> CLI mode
+- `python main.py demo` -> quick backend demo
+- `python main.py full` -> backend + frontend together
+
+## AI Configuration
+
+Use `.env` file:
+
+```env
+AI_MODE=auto
+OPENAI_API_KEY=...
+ANTHROPIC_API_KEY=...
+```
+
+Typical modes:
+- `AI_MODE=auto`: uses a real provider when keys are available
+- `AI_MODE=mock`: forces mock behavior
+
+## Project Structure
+
+```text
+.
+├─ main.py
+├─ requirements.txt
+├─ frontend/
+│  ├─ src/
+│  └─ package.json
+├─ src/pss_ai/
+│  ├─ api.py
+│  ├─ orchestrator.py
+│  ├─ services/
+│  └─ adapters/
+├─ tests/
+├─ EDA_datasets.py
+├─ Extra_tools.py
+├─ Interface.py
+└─ Langchain.py
+```
+
+## Notebook Conversion
+
+Original notebooks were converted into Python scripts:
+
+- `EDA_datasets.py`
+- `Extra_tools.py`
+- `Interface.py`
+- `Langchain.py`
+
+## Quick Troubleshooting
+
+- If `npm` is not recognized: install Node.js LTS and reopen terminal
+- If Python dependency is missing: reinstall with `-r requirements.txt`
+- If port is busy: use another port, e.g. `python main.py api --port 8001`
+
+## Notes
+
+This project is designed for demo and prototyping scenarios. Some data flows and availability responses are intentionally mocked to ensure stable UX during presentations.
